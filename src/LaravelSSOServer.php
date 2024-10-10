@@ -22,7 +22,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return void
      */
-    protected function redirect(?string $url = null, array $parameters = [], int $httpResponseCode = 307)
+    protected function redirect(?string $url = null, array $parameters = [], int $httpResponseCode = 307): void
     {
         if (!$url) {
             $url = urldecode(request()->get('return_url', null));
@@ -51,7 +51,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return string
      */
-    protected function returnJson(?array $response = null, int $httpResponseCode = 200)
+    protected function returnJson(?array $response = null, int $httpResponseCode = 200): string
     {
         return response()->json($response, $httpResponseCode);
     }
@@ -64,7 +64,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return bool
      */
-    protected function authenticate(string $username, string $password)
+    protected function authenticate(string $username, string $password): bool
     {
         if (!Auth::attempt([config('laravel-sso.usernameColumn') => $username, 'password' => $password])) {
             // ability to login without password
@@ -102,7 +102,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return null|array
      */
-    protected function getBrokerInfo(string $brokerId)
+    protected function getBrokerInfo(string $brokerId): ?array
     {
         try {
             $broker = config('laravel-sso.brokersModel')::where('name', $brokerId)->firstOrFail();
@@ -120,7 +120,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return array|object|null
      */
-    protected function getUserInfo(string $username)
+    protected function getUserInfo(string $username): object|array|null
     {
         try {
             $user = config('laravel-sso.usersModel')::where(config('laravel-sso.usernameColumn'), $username)->firstOrFail();
@@ -157,7 +157,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return null|string
      */
-    protected function getBrokerSessionId()
+    protected function getBrokerSessionId(): ?string
     {
         $authorization = request()->header('Authorization', null);
         if ($authorization &&  strpos($authorization, 'Bearer') === 0) {
@@ -185,7 +185,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return void
      */
-    protected function setSessionData(string $key, ?string $value = null)
+    protected function setSessionData(string $key, ?string $value = null): void
     {
         if (!$value) {
             Session::forget($key);
@@ -202,7 +202,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return string
      */
-    protected function getSessionData(string $key)
+    protected function getSessionData(string $key): string
     {
         if ($key === 'id') {
             return Session::getId();
@@ -218,7 +218,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return void
      */
-    protected function startSession(string $sessionId)
+    protected function startSession(string $sessionId): void
     {
         Session::setId($sessionId);
         Session::start();
@@ -232,7 +232,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return void
      */
-    protected function saveBrokerSessionData(string $brokerSessionId, string $sessionData)
+    protected function saveBrokerSessionData(string $brokerSessionId, string $sessionData): void
     {
         Cache::put('broker_session:' . $brokerSessionId, $sessionData, now()->addHour());
     }
@@ -244,7 +244,7 @@ class LaravelSSOServer extends SSOServer
      *
      * @return null|string
      */
-    protected function getBrokerSessionData(string $brokerSessionId)
+    protected function getBrokerSessionData(string $brokerSessionId): ?string
     {
         return Cache::get('broker_session:' . $brokerSessionId);
     }

@@ -14,7 +14,7 @@ class ServerController extends BaseController
      *
      * @return void
      */
-    public function attach(Request $request, LaravelSSOServer $server)
+    public function attach(Request $request, LaravelSSOServer $server): void
     {
         $server->attach(
             $request->get('broker', null),
@@ -29,7 +29,7 @@ class ServerController extends BaseController
      *
      * @return mixed
      */
-    public function login(Request $request, LaravelSSOServer $server)
+    public function login(Request $request, LaravelSSOServer $server): mixed
     {
         return $server->login(
             $request->get('username', null),
@@ -42,7 +42,7 @@ class ServerController extends BaseController
      *
      * @return string
      */
-    public function logout(LaravelSSOServer $server)
+    public function logout(LaravelSSOServer $server): string
     {
         return $server->logout();
     }
@@ -52,7 +52,7 @@ class ServerController extends BaseController
      *
      * @return string
      */
-    public function userInfo(LaravelSSOServer $server)
+    public function userInfo(LaravelSSOServer $server): string
     {
         return $server->userInfo();
     }

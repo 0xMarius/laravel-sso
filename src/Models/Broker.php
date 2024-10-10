@@ -11,7 +11,7 @@ class Broker extends Model
      *
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return config('laravel-sso.brokersTable', 'brokers');
     }

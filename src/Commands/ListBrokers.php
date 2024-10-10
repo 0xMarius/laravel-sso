@@ -35,7 +35,7 @@ class ListBrokers extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         $headers = ['ID', 'Name', 'Secret'];
 

@@ -35,7 +35,7 @@ class DeleteBroker extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         $brokerClass = app(config('laravel-sso.brokersModel'));
         $broker = $brokerClass::where('name', $this->argument('name'))->firstOrFail();

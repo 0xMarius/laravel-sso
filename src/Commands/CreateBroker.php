@@ -36,7 +36,7 @@ class CreateBroker extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         $brokerClass = app(config('laravel-sso.brokersModel'));
         $broker = new $brokerClass;

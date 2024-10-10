@@ -16,7 +16,7 @@ class SSOAutoLogin
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $broker = new LaravelSSOBroker();
         
@@ -56,7 +56,7 @@ class SSOAutoLogin
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function clearSSOCookie(Request $request)
+    protected function clearSSOCookie(Request $request): \Illuminate\Http\RedirectResponse
     {
         return redirect($request->fullUrl())->cookie(cookie('sso_token_' . config('laravel-sso.brokerName')));
     }
@@ -68,7 +68,7 @@ class SSOAutoLogin
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function logout(Request $request)
+    protected function logout(Request $request): \Illuminate\Http\RedirectResponse
     {
         auth()->logout();
         return redirect($request->fullUrl());
